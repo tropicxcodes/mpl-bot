@@ -3,7 +3,6 @@ from discord.ext import commands
 from discord import app_commands
 import asyncio
 import os
-import subprocess
 
 # Force install Chromium on startup
 from booker import book_room, check_availability
