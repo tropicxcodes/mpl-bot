@@ -6,7 +6,7 @@ import os
 import subprocess
 
 # Force install Chromium on startup
-subprocess.run(["playwright", "install", "chromium"])
+subprocess.run(["playwright", "install", "--with-deps", "chromium"])
 from booker import book_room, check_availability
 from dotenv import load_dotenv
 
