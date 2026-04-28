@@ -1,5 +1,22 @@
 [phases.setup]
-nixPkgs = ["chromium"]
+nixPkgs = [
+  "glib",
+  "nss",
+  "nspr",
+  "atk",
+  "at-spi2-atk",
+  "cups",
+  "libdrm",
+  "libxkbcommon",
+  "libxcomposite",
+  "libxdamage",
+  "libxfixes",
+  "libxrandr",
+  "mesa",
+  "pango",
+  "cairo",
+  "alsa-lib"
+]
 
 [phases.build]
 cmds = [
