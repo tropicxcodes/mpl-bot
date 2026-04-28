@@ -88,7 +88,10 @@ async def book_room(
     url = BRANCH_URLS.get(branch, BRANCH_URLS["mainlibrary"])
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(
+    headless=True,
+    executable_path=os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH", None)
+)
         page    = await browser.new_page()
 
         try:
