@@ -118,11 +118,18 @@ async def checkavailability(
 
         lines.append(f"\nUse `/bookroom {date} <time>` to book one!")
 
-        await interaction.followup.send("\n".join(lines))
+        # prevent long messages (just in case)
+        message = "\n".join(lines)
+        if len(message) > 1900:
+            message = message[:1900] + "\n... (truncated)"
+
+        await interaction.followup.send(message)
 
     except Exception as e:
+        error_msg = str(e)[:1900]  # 👈 prevents Discord 2000 char crash
+
         await interaction.followup.send(
-            f"❌ Error checking availability:\n```{str(e)}```"
+            f"❌ Error checking availability:\n```{error_msg}```"
         )
 
 
