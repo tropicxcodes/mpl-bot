@@ -101,20 +101,27 @@ async def checkavailability(
 ):
     await interaction.response.defer(thinking=True)
 
-    slots = await check_availability(date=date, branch=branch)
+    try:
+        slots = await check_availability(date=date, branch=branch)
 
-    if not slots:
+        if not slots:
+            await interaction.followup.send(
+                f"😔 No available slots found for **{date}** at **{branch}**."
+            )
+            return
+
+        lines = [f"📅 **Available slots on {date}** ({branch}):\n"]
+        for slot in slots:
+            lines.append(f"• {slot}")
+
+        lines.append(f"\nUse `/bookroom {date} <time>` to book one!")
+
+        await interaction.followup.send("\n".join(lines))
+
+    except Exception as e:
         await interaction.followup.send(
-            f"😔 No available slots found for **{date}** at **{branch}**."
+            f"❌ Error checking availability:\n```{str(e)}```"
         )
-        return
-
-    lines = [f"📅 **Available slots on {date}** ({branch}):\n"]
-    for slot in slots:
-        lines.append(f"• {slot}")
-
-    lines.append(f"\nUse `/bookroom {date} <time>` to book one!")
-    await interaction.followup.send("\n".join(lines))
 
 
 # ─── /help ────────────────────────────────────────────────────────────────────
